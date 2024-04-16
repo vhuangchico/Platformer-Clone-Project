@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Author: Huang,Vincent
@@ -9,11 +10,21 @@ using UnityEngine;
 /// </summary>
 public class NewBehaviourScript : MonoBehaviour
 {
-
+    public int Health = 100;
     public float speed = 10f;
     public float jumpForce = 10f;
+    public float projectSpeed = 2f;
     private Rigidbody rb;
     private Vector3 startPos;
+    public bool facingLeft = false;
+    public bool shootLeft;
+    public GameObject playerCirno;
+    public GameObject projPrefab;
+
+
+    // UI Stuff
+
+    public TMP_Text healthText;
     // Start is called before the first frame update
 
     private void Awake()
@@ -30,8 +41,21 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        healthText.text = "Health: " + Health.ToString();
         Move();
         Jumping();
+        SpawnProj();
+    }
+
+    // Player shoots a projectile when X is pressed
+    private void SpawnProj()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GameObject newProj = Instantiate(projPrefab, transform.position, transform.rotation);
+            newProj.GetComponent<PlayerProjectile>().goingLeft = shootLeft;
+        }
     }
 
     private void Move()
@@ -39,8 +63,16 @@ public class NewBehaviourScript : MonoBehaviour
         // check for user input to move left
         if (Input.GetKey(KeyCode.A))
         {
-            if (!HitLeftWall())
+
+           if(!HitLeftWall())
             {
+                if (!facingLeft)
+                {
+                    playerCirno.transform.rotation = Quaternion.Euler(0, 90, 0);
+                    facingLeft = true;
+                    shootLeft = true;
+                    //  transform.rotation = Quaternion.Euler(0, 90, 0);
+                }
                 transform.Translate(Vector3.left * speed * Time.deltaTime);
             }
         }
@@ -49,6 +81,13 @@ public class NewBehaviourScript : MonoBehaviour
         {
             if (!HitRightWall())
             {
+                if (facingLeft)
+                {
+                    playerCirno.transform.rotation = Quaternion.Euler(0, -90, 0);
+                    facingLeft = false;
+                    shootLeft = false;
+                    //  transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
                 transform.Translate(Vector3.right * speed * Time.deltaTime);
             }
         }
@@ -62,11 +101,11 @@ public class NewBehaviourScript : MonoBehaviour
             if (OnGround())
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-                Debug.DrawLine(transform.position, transform.position - new Vector3(0, 1.5f, 0), Color.red);
             }
         }
     }
+
+
     private bool HitLeftWall()
     {
         Vector3 raycastOrigin = transform.position;
@@ -124,5 +163,13 @@ public class NewBehaviourScript : MonoBehaviour
         }
 
         return onGround;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Enemy>())
+        {
+            Health--;
+        }
     }
 }
