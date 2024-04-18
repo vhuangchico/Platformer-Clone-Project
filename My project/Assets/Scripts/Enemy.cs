@@ -5,10 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;
+    
 
     // stores a left/right bound via game objects
     public GameObject leftBoundary;
     public GameObject rightBoundary;
+    public int Health;
 
     public bool goingLeft;
 
@@ -56,5 +58,20 @@ public class Enemy : MonoBehaviour
             }
         }
         transform.Translate(moveDir * speed * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        print("Event triggered");
+        if (other.gameObject.GetComponent<PlayerProjectile>())
+        {
+
+            print("Enemy hit");
+            Health--;
+            Destroy(other.gameObject);
+            if (Health<=0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

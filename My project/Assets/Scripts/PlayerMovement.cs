@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Author: Huang,Vincent
@@ -14,13 +15,15 @@ public class NewBehaviourScript : MonoBehaviour
     public float speed = 10f;
     public float jumpForce = 10f;
     public float projectSpeed = 2f;
+    public int DamageRec;
     private Rigidbody rb;
     private Vector3 startPos;
-    public bool facingLeft = false;
+    public bool facingLeft;
     public bool shootLeft;
     public GameObject playerCirno;
     public GameObject projPrefab;
-
+    public int immuneTime = 5;
+    public bool isImmune;
 
     // UI Stuff
 
@@ -35,7 +38,10 @@ public class NewBehaviourScript : MonoBehaviour
     }
     void Start()
     {
-        
+        playerCirno.transform.rotation = Quaternion.Euler(0, 90, 0);
+        facingLeft = true;
+        shootLeft = true;
+        isImmune = false;
     }
 
     // Update is called once per frame
@@ -165,11 +171,37 @@ public class NewBehaviourScript : MonoBehaviour
         return onGround;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.GetComponent<Enemy>())
+        if (other.gameObject.GetComponent<Enemy>())
         {
-            Health--;
+            DamageRec = 15;
+            if (isImmune)
+            {
+                DamageRec = 0;
+            }
+            Immunity();
+            healthCheck();
         }
+    }
+    private void healthCheck()
+    {
+        Health = Health - DamageRec;
+        if (Health <= 0)
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
+    private void Immunity()
+    {
+        isImmune = true;
+        StartCoroutine(ImmuneTimer(immuneTime));
+
+    }
+    private IEnumerator ImmuneTimer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        isImmune = false;
     }
 }
