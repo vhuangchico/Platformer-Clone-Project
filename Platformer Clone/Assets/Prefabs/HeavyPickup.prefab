@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3828627042480049660}
   - component: {fileID: 3323515486886225916}
   - component: {fileID: 2664989419687140623}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HeavyPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   - component: {fileID: 8651641741813716609}
   - component: {fileID: 6153775597240455110}
   - component: {fileID: 5395379822669046047}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 5062982528222930375}
   - component: {fileID: 9068872985961168523}
   - component: {fileID: 6149702105133556874}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 5568288966113506921}
   - component: {fileID: 4791673705047286787}
   - component: {fileID: 1520383545286090611}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 6938247627623904873}
   - component: {fileID: 3720715874224397544}
   - component: {fileID: 8499399218857837863}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   - component: {fileID: 3702515387242976062}
   - component: {fileID: 1932886378379413018}
   - component: {fileID: 3058891993157150876}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 7075171159544533017}
   - component: {fileID: 6975562508432834915}
   - component: {fileID: 5587602983615683519}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/// <summary>
+/// Author: Huang, Vincent
+/// Updated: 4/20/24
+/// Bullet fired by player goes left or right, despawning if it doesn't hit anything after 5 seconds. 
+/// </summary>
 
 public class PlayerProjectile : MonoBehaviour
 {
@@ -16,6 +21,7 @@ public class PlayerProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // bullet travels left if goingleft is true, right if false.
         if (goingLeft)
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
@@ -31,7 +37,7 @@ public class PlayerProjectile : MonoBehaviour
         }
     }
  
-
+    // Bullet despawns after 5 seconds. 
     private IEnumerator DespawnTimer(float time)
     {
         yield return new WaitForSeconds(time);
