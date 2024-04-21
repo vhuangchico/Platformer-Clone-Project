@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Author: Huang, Vincent
+/// Updated: 4/20/24
+/// Hard enemy that goes torwards the player's direction and is defeated by shooting it.
+/// </summary>
 public class HardEnemy : MonoBehaviour
 {
     public float speed = 5;
 
 
     // stores a left/right bound via game objects
-    public GameObject leftBoundary;
-    public GameObject rightBoundary;
+    public Transform player;
     public int Health;
 
     public bool goingLeft;
+    private Rigidbody rb;
 
     // stores positions of the left/right boundaries
     private Vector3 leftPos;
@@ -21,11 +26,8 @@ public class HardEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leftPos = leftBoundary.transform.position;
-        rightPos = rightBoundary.transform.position;
-
-        leftBoundary.transform.parent = null;
-        rightBoundary.transform.parent = null;
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -35,29 +37,19 @@ public class HardEnemy : MonoBehaviour
     }
     private void MoveEnemy()
     {
-        Vector3 moveDir;
 
-        if (goingLeft) // going left
+        Vector3 moveDir;
+        if (player.position.x < transform.position.x) // if the player's x position is lower than the enemy's, it'll go left and vice versa.
         {
             moveDir = Vector3.left;
-
-            // check if enemy has moved to the left of the lefPos
-            if (transform.position.x < leftPos.x)
-            {
-                goingLeft = false;
-            }
         }
         else // going right
         {
             moveDir = Vector3.right;
-
-            if (transform.position.x > rightPos.x)
-            {
-                goingLeft = true;
-            }
         }
         transform.Translate(moveDir * speed * Time.deltaTime);
     }
+        
      private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<PlayerProjectile>()) // checks for collision with a projectile.
@@ -78,4 +70,5 @@ public class HardEnemy : MonoBehaviour
             }
         }
     }
+
 }

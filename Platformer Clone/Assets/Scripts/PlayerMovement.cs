@@ -9,28 +9,35 @@ using UnityEngine.SceneManagement;
 /// Updated: 04/11/24
 /// Script controls player movement.
 /// </summary>
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    public int Health = 100;
-    public int MaxHealth;
-    public int healthGained;
-    public float speed = 10f;
-    public float jumpForce = 10f;
-    public float projectSpeed = 2f;
-    public int DamageRec;
+    // Assigned
     private Rigidbody rb;
     private Vector3 startPos;
-    public bool facingLeft;
-    public bool shootLeft;
     public GameObject playerCirno;
     public GameObject projPrefab;
     public GameObject heavyProjPrefab;
-    public int immuneTime = 5;
+    public MeshRenderer cirnoImmunity;
+
+    // Checks
     public bool isImmune;
     public bool isHeavy;
     public bool canShoot;
+    public bool facingLeft;
+    public bool shootLeft;
+    public bool gotJump;
+
+    // floats and ints
+    public float speed = 10f;
+    public float jumpForce = 10f;
+    public float projectSpeed = 2f;
     public float shootCooldown = 0.5f;
-    public MeshRenderer cirnoImmunity;
+    public int Health = 100;
+    public int MaxHealth;
+    public int healthGained;
+    public int DamageRec;
+    public int immuneTime = 5;
+    
 
     // UI Stuff
 
@@ -132,11 +139,11 @@ public class NewBehaviourScript : MonoBehaviour
         }
     }
 
-
+    // Checks if player hit a wall on their left
     private bool HitLeftWall() // 
     {
         Vector3 raycastOrigin = transform.position;
-        Vector3 originOffset = new Vector3(0, 0.9f, 0);
+        Vector3 originOffset = new Vector3(0, 0.1f, 0);
         float playerWidth = 0.5f;
 
         bool hitLeftWall = false;
@@ -156,10 +163,11 @@ public class NewBehaviourScript : MonoBehaviour
         }
         return hitLeftWall;
     }
+    // check if player hit a wall on their right
     private bool HitRightWall()
     {
         Vector3 raycastOrigin = transform.position;
-        Vector3 originOffset = new Vector3(0, 0.9f, 0);
+        Vector3 originOffset = new Vector3(0, 0.1f, 0);
         float playerWidth = 0.5f;
 
         bool hitRightWall = false;
@@ -240,6 +248,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (other.gameObject.GetComponent<JumpPickup>())
         {
             jumpForce = jumpForce * 2;
+            gotJump = true;
             Destroy(other.gameObject);
         }
     }

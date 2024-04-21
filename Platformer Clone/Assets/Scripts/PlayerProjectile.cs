@@ -29,13 +29,6 @@ public class PlayerProjectile : MonoBehaviour
         else
             transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag != "Player")
-        {
-            Destroy(gameObject);
-        }
-    }
  
     // Bullet despawns after 5 seconds. 
     private IEnumerator DespawnTimer(float time)

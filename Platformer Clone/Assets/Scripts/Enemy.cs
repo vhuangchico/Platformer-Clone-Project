@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Author: Huang, Vincent
+/// Updated: 4/20/24
+/// Hard enemy that goes left and right and is defeated by shooting it.
+/// </summary>
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;

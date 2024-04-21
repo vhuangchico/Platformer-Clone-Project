@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Default
   - Heavy
+  - Wall
   layers:
   - Default
   - TransparentFX
