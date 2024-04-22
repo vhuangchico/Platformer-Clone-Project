@@ -3645,24 +3645,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331261f7a102f144c981576662093504, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
-  MaxHealth: 100
-  healthGained: 15
-  speed: 5
-  jumpForce: 5
-  projectSpeed: 2
-  DamageRec: 0
-  facingLeft: 0
-  shootLeft: 0
   playerCirno: {fileID: 1985524045745503460}
-  projPrefab: {fileID: 1038040849442113549, guid: 4d882dff96e6a694fa30017e09902815, type: 3}
+  projPrefab: {fileID: 3315968027916159791, guid: 18d005de850642d42b7aa55823560a4f, type: 3}
   heavyProjPrefab: {fileID: 3315968027916159791, guid: 79e3f7031b3be4a45b0676ee6fe24c71, type: 3}
-  immuneTime: 5
+  cirnoImmunity: {fileID: 6602279309986074656}
   isImmune: 0
   isHeavy: 0
   canShoot: 0
+  facingLeft: 0
+  shootLeft: 0
+  gotJump: 0
+  speed: 5
+  jumpForce: 5
+  projectSpeed: 2
   shootCooldown: 0.5
-  cirnoImmunity: {fileID: 6602279309986074656}
+  Health: 100
+  MaxHealth: 100
+  healthGained: 15
+  DamageRec: 0
+  immuneTime: 5
   healthText: {fileID: 0}
 --- !u!54 &1624017010574658029
 Rigidbody:

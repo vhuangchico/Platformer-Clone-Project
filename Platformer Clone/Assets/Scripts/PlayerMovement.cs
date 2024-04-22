@@ -11,6 +11,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
+
+    // Arrays
+
     // Assigned
     private Rigidbody rb;
     private Vector3 startPos;
@@ -26,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public bool facingLeft;
     public bool shootLeft;
     public bool gotJump;
+    public bool canFlick;
 
     // floats and ints
     public float speed = 10f;
@@ -36,8 +40,9 @@ public class PlayerMovement : MonoBehaviour
     public int MaxHealth;
     public int healthGained;
     public int DamageRec;
-    public int immuneTime = 5;
-    
+    public int immuneTime = 25;
+    public float flickTime = 0.1f;
+
 
     // UI Stuff
 
@@ -68,7 +73,8 @@ public class PlayerMovement : MonoBehaviour
         Jumping();
         SpawnProj();
     }
-
+   
+    
     // Player shoots a projectile when X is pressed
     private void SpawnProj()
     {
@@ -274,7 +280,20 @@ public class PlayerMovement : MonoBehaviour
     // when timer ends, makes player vulnerable to damage again.
     private IEnumerator ImmuneTimer(float time)
     {
-        yield return new WaitForSeconds(time);
+        Renderer[] rs = GetComponentsInChildren<Renderer>(); // gets all child meshrenderers of the 
+        for (int i = 0; i < 25; i++) // Flickers for the duration of immuneTime;
+        {
+            foreach (Renderer r in rs)
+            {
+                r.enabled = false;
+            }
+            yield return new WaitForSeconds(flickTime);
+            foreach (Renderer r in rs)
+            {
+                r.enabled = true;
+            }
+            yield return new WaitForSeconds(flickTime); // each loop goes for about 0.2 seconds. Needs to loop 25 times to reach 5 seconds. 
+        }    
         isImmune = false;
     }
     // when timer ends, lets player shoot again.
