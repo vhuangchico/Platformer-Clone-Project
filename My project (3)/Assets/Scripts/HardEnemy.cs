@@ -11,8 +11,10 @@ public class HardEnemy : MonoBehaviour
 {
     public float speed = 5;
 
+
     // stores a left/right bound via game objects
     public Transform player;
+    public gameObject Player;
     public int Health;
 
     public bool goingLeft;
@@ -27,6 +29,7 @@ public class HardEnemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
+        Player = Player.GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -66,6 +69,10 @@ public class HardEnemy : MonoBehaviour
             if (Health <= 0) // enemy is destroyed when health reaches 0.
             {
                 Destroy(gameObject);
+                if(Player.gameObject.GetComponent<PlayerMovement>().isFinal == true)
+                {
+                    enemyCount--;
+                }
             }
         }
     }

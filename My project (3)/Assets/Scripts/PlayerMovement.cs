@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public AudioSource audioSource;
+    // Arrays
 
     // Assigned
     private Rigidbody rb;
@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public bool shootLeft;
     public bool gotJump;
     public bool canFlick;
+    public bool isFinal;
 
     // floats and ints
     public float speed = 10f;
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     public int DamageRec;
     public int immuneTime = 25;
     public float flickTime = 0.1f;
+    public int enemyCount;
 
 
     // UI Stuff
@@ -62,7 +64,6 @@ public class PlayerMovement : MonoBehaviour
         shootLeft = true;
         isImmune = false;
         canShoot = true;
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -89,14 +90,12 @@ public class PlayerMovement : MonoBehaviour
                     GameObject newProj = Instantiate(heavyProjPrefab, transform.position, transform.rotation);
                     newProj.GetComponent<PlayerProjectile>().goingLeft = shootLeft;
                     canShoot = false;
-                    audioSource.Play();
                 }
                 else
                 {
                     GameObject newProj = Instantiate(projPrefab, transform.position, transform.rotation);
                     newProj.GetComponent<PlayerProjectile>().goingLeft = shootLeft;
                     canShoot = false;
-                    audioSource.Play();
                 }
                 StartCoroutine(ShootTimer(shootCooldown)); // Starts shooting cooldown countdown.
             }
@@ -304,5 +303,17 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         canShoot = true;
+    }
+    // checks if the player has gone through the final portal. Begins an enemy count if they are.
+    private void checkFinal()
+    {
+        if (isFinal)
+        {
+            enemyCount--;
+        }
+        if (enemyCount <= 0)
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 }

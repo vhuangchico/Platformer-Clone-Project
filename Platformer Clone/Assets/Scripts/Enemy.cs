@@ -10,7 +10,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;
-    
 
     // stores a left/right bound via game objects
     public GameObject leftBoundary;
